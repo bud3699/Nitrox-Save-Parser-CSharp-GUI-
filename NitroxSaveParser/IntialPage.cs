@@ -30,13 +30,13 @@ namespace NitroxSaveParser
         private bool mouseDown;
         private Point lastLocation;
 
-        private void MainForm_MouseDown(object sender, MouseEventArgs e)
+        public void MainForm_MouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;
             lastLocation = e.Location;
         }
 
-        private void MainForm_MouseMove(object sender, MouseEventArgs e)
+        public void MainForm_MouseMove(object sender, MouseEventArgs e)
         {
             if (mouseDown)
             {
@@ -48,7 +48,7 @@ namespace NitroxSaveParser
             }
         }
 
-        private void MainForm_MouseUp(object sender, MouseEventArgs e)
+        public void MainForm_MouseUp(object sender, MouseEventArgs e)
         {
             mouseDown = false;
         }
@@ -126,6 +126,8 @@ namespace NitroxSaveParser
         private void ReadData_Click(object sender, EventArgs e)
         {
             InitialDataParse.InitialData();
+            DataSelectPage DataSelectPage = new DataSelectPage();
+            DataSelectPage.Show();
         }
 
         private void PlayerData_CheckedChanged_1(object sender, EventArgs e)
@@ -159,5 +161,9 @@ namespace NitroxSaveParser
             this.WindowState = FormWindowState.Minimized;
         }
 
+        private void MadeByBud_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Hi From bud :) ");
+        }
     }
 }

@@ -32,7 +32,7 @@ namespace NitroxSaveParser
         /// the contents of this method with the code editor.
         /// </summary>
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
-        private static extern IntPtr CreateRoundRectRgn
+        public static extern IntPtr CreateRoundRectRgn
             (
             int nLeftRect,     // x-coordinate of upper-left corner
             int nTopRect,      // y-coordinate of upper-left corner
@@ -174,6 +174,7 @@ namespace NitroxSaveParser
             this.MadeByBud.Size = new System.Drawing.Size(71, 13);
             this.MadeByBud.TabIndex = 12;
             this.MadeByBud.Text = "Made By Bud";
+            this.MadeByBud.Click += new System.EventHandler(this.MadeByBud_Click);
             // 
             // ButtonBox
             // 
@@ -254,6 +255,9 @@ namespace NitroxSaveParser
             this.NitroxText.TabIndex = 19;
             this.NitroxText.Text = "Nitrox Save Parser";
             this.NitroxText.UseCompatibleTextRendering = true;
+            this.NitroxText.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseDown);
+            this.NitroxText.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseMove);
+            this.NitroxText.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // Corner
             // 

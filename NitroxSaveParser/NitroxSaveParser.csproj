@@ -87,6 +87,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataParse\DataSelectPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataParse\DataSelectPage.Designer.cs">
+      <DependentUpon>DataSelectPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataParse\InitialDataParse.cs" />
     <Compile Include="DataParse\PlayerDataParse.cs" />
     <Compile Include="IntialPage.cs">
@@ -97,6 +103,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DataParse\DataSelectPage.resx">
+      <DependentUpon>DataSelectPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="IntialPage.resx">
       <DependentUpon>IntialPage.cs</DependentUpon>
     </EmbeddedResource>
