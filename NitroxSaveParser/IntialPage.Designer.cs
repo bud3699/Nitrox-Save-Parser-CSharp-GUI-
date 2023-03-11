@@ -57,12 +57,13 @@ namespace NitroxSaveParser
             this.Close = new System.Windows.Forms.Button();
             this.Minimise = new System.Windows.Forms.Button();
             this.Version = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.MoveBar = new System.Windows.Forms.PictureBox();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.NitroxText = new System.Windows.Forms.Label();
             this.Corner = new System.Windows.Forms.Label();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.ButtonBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MoveBar)).BeginInit();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
@@ -75,9 +76,9 @@ namespace NitroxSaveParser
             this.ReadData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(43)))));
             this.ReadData.Enabled = false;
             this.ReadData.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.ReadData.Location = new System.Drawing.Point(324, 315);
+            this.ReadData.Location = new System.Drawing.Point(328, 314);
             this.ReadData.Name = "ReadData";
-            this.ReadData.Size = new System.Drawing.Size(146, 37);
+            this.ReadData.Size = new System.Drawing.Size(142, 37);
             this.ReadData.TabIndex = 3;
             this.ReadData.Text = "Read Data";
             this.ReadData.UseVisualStyleBackColor = false;
@@ -185,7 +186,6 @@ namespace NitroxSaveParser
             this.ButtonBox.Size = new System.Drawing.Size(776, 335);
             this.ButtonBox.TabIndex = 13;
             this.ButtonBox.TabStop = false;
-            this.ButtonBox.Click += new System.EventHandler(this.ButtonBox_Click);
             // 
             // Close
             // 
@@ -222,17 +222,20 @@ namespace NitroxSaveParser
             this.Version.TabIndex = 16;
             this.Version.Text = "Version: 1.0.0.0";
             // 
-            // pictureBox1
+            // MoveBar
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(21)))), ((int)(((byte)(22)))));
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Padding = new System.Windows.Forms.Padding(10);
-            this.pictureBox1.Size = new System.Drawing.Size(776, 30);
-            this.pictureBox1.TabIndex = 17;
-            this.pictureBox1.TabStop = false;
+            this.MoveBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(21)))), ((int)(((byte)(22)))));
+            this.MoveBar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.MoveBar.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.MoveBar.Location = new System.Drawing.Point(12, 12);
+            this.MoveBar.Name = "MoveBar";
+            this.MoveBar.Padding = new System.Windows.Forms.Padding(10);
+            this.MoveBar.Size = new System.Drawing.Size(776, 30);
+            this.MoveBar.TabIndex = 17;
+            this.MoveBar.TabStop = false;
+            this.MoveBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseDown);
+            this.MoveBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseMove);
+            this.MoveBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // contextMenuStrip2
             // 
@@ -251,9 +254,6 @@ namespace NitroxSaveParser
             this.NitroxText.TabIndex = 19;
             this.NitroxText.Text = "Nitrox Save Parser";
             this.NitroxText.UseCompatibleTextRendering = true;
-            this.FormBorderStyle = FormBorderStyle.None;
-            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, 800, 451, 20, 20));
-
             // 
             // Corner
             // 
@@ -287,7 +287,7 @@ namespace NitroxSaveParser
             this.Controls.Add(this.WorldData);
             this.Controls.Add(this.ReadData);
             this.Controls.Add(this.ButtonBox);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.MoveBar);
             this.Controls.Add(this.Corner);
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -297,11 +297,8 @@ namespace NitroxSaveParser
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Nitrox Save Parser";
             this.Load += new System.EventHandler(this.IntialPage_Load);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseDown);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseMove);
-            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             ((System.ComponentModel.ISupportInitialize)(this.ButtonBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MoveBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -322,10 +319,11 @@ namespace NitroxSaveParser
         private Button Close;
         private Button Minimise;
         private Label Version;
-        private PictureBox pictureBox1;
+        private PictureBox MoveBar;
         private ContextMenuStrip contextMenuStrip2;
         private Label NitroxText;
         private Label Corner;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
 
