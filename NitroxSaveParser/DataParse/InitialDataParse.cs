@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace NitroxSaveParser.DataParse
 {
-    internal class InitialDataParse
+    public class InitialDataParse
     {
-        public InitialDataParse()
+        public static void InitialData()
         {
-            NitroxSaveParser 
+            Parse.PlayerData();
         }
 
     }

@@ -12,6 +12,7 @@ using System.Windows;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Xml.Xsl;
 using System.Security.Cryptography.X509Certificates;
+using NitroxSaveParser.DataParse;
 
 namespace NitroxSaveParser
 {
@@ -26,6 +27,31 @@ namespace NitroxSaveParser
         public static bool ReadPlayerDataTrue { get; set; }
         public static bool ReadBaseDataTrue { get; set; }
 
+        private bool mouseDown;
+        private Point lastLocation;
+
+        private void MainForm_MouseDown(object sender, MouseEventArgs e)
+        {
+            mouseDown = true;
+            lastLocation = e.Location;
+        }
+
+        private void MainForm_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (mouseDown)
+            {
+                this.Location = new Point(
+                    (this.Location.X - lastLocation.X) + e.X,
+                    (this.Location.Y - lastLocation.Y) + e.Y);
+
+                this.Update();
+            }
+        }
+
+        private void MainForm_MouseUp(object sender, MouseEventArgs e)
+        {
+            mouseDown = false;
+        }
         public void Directory_Location(object sender, EventArgs e)
         {
 
@@ -87,7 +113,7 @@ namespace NitroxSaveParser
                     ReadData.Enabled = false;
                     Found.Enabled = false;
                     Found.Visible = false;
-                    NotFound.Visible = true;
+                    NotFound.Enabled = true;
                     NotFound.Visible = true;
 
                 }
@@ -99,7 +125,7 @@ namespace NitroxSaveParser
 
         private void ReadData_Click(object sender, EventArgs e)
         {
-
+            InitialDataParse.InitialData();
         }
 
         private void PlayerData_CheckedChanged_1(object sender, EventArgs e)
@@ -111,5 +137,31 @@ namespace NitroxSaveParser
         {
             bool ReadBaseDataTrue = true;
         }
+
+        private void IntialPage_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NotFound_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ButtonBox_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Close_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
     }
 }

@@ -3,41 +3,48 @@ using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-class Program
+class Parse
 {
-    static void Main(string[] args)
+    public static void PlayerData()
     {
-        // Load JSON data from file
-        string path = Path.Combine(Directory.GetCurrentDirectory(), "data.json");
-        string data = File.ReadAllText(path);
-
-        // Parse JSON data
-        JObject json = JObject.Parse(data);
-        JArray players = (JArray)json["players"];
-
-        // Iterate over players and store their info in variables
-        string[] names = new string[players.Count];
-        int[] ids = new int[players.Count];
-        string[][] modules = new string[players.Count][];
-        for (int i = 0; i < players.Count; i++)
+        try
         {
-            JObject player = (JObject)players[i];
-            names[i] = (string)player["name"];
-            ids[i] = (int)player["id"];
-            modules[i] = player["modules"].ToObject<string[]>();
-        }
+            // Load JSON data from file
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "data.json");
+            string data = File.ReadAllText(path);
 
-        // Print the variables
-        for (int i = 0; i < players.Count; i++)
-        {
-            Console.WriteLine("Name: " + names[i]);
-            Console.WriteLine("ID: " + ids[i]);
-            Console.Write("Modules: ");
-            foreach (string module in modules[i])
+            // Parse JSON data
+            JObject json = JObject.Parse(data);
+            JArray players = (JArray)json["players"];
+
+            // Iterate over players and store their info in variables
+            string[] names = new string[players.Count];
+            int[] ids = new int[players.Count];
+            string[][] modules = new string[players.Count][];
+            for (int i = 0; i < players.Count; i++)
             {
-                Console.Write(module + " ");
+                JObject player = (JObject)players[i];
+                names[i] = (string)player["name"];
+                ids[i] = (int)player["id"];
+                modules[i] = player["modules"].ToObject<string[]>();
             }
-            Console.WriteLine();
+
+            // Print the variables
+            for (int i = 0; i < players.Count; i++)
+            {
+                Console.WriteLine("Name: " + names[i]);
+                Console.WriteLine("ID: " + ids[i]);
+                Console.Write("Modules: ");
+                foreach (string module in modules[i])
+                {
+                    Console.Write(module + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("An error occurred: " + ex.Message);
         }
     }
 }
