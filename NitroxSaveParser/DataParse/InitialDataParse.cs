@@ -10,7 +10,8 @@ namespace NitroxSaveParser.DataParse
     {
         public static void InitialData()
         {
-            Parse.PlayerData();
+            VersionData.Parse();
+            //Parse.PlayerData();
         }
 
     }

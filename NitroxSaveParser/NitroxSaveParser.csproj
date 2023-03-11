@@ -94,6 +94,7 @@
       <DependentUpon>DataSelectPage.cs</DependentUpon>
     </Compile>
     <Compile Include="DataParse\InitialDataParse.cs" />
+    <Compile Include="DataParse\VersionDataParse.cs" />
     <Compile Include="DataParse\PlayerDataParse.cs" />
     <Compile Include="IntialPage.cs">
       <SubType>Form</SubType>

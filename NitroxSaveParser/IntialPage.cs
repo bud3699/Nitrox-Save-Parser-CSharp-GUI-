@@ -13,16 +13,19 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Xml.Xsl;
 using System.Security.Cryptography.X509Certificates;
 using NitroxSaveParser.DataParse;
+using System.Security.Policy;
 
 namespace NitroxSaveParser
 {
     public partial class IntialPage : Form
     {
+        public static string dir { get; private set; }
+
         public IntialPage()
         {
             InitializeComponent();
         }
-        public static string selectedDir { get;}
+
         public static bool ReadWorldDataTrue = false;
         public static bool ReadPlayerDataTrue = false;
         public static bool ReadBaseDataTrue = false;
@@ -53,6 +56,7 @@ namespace NitroxSaveParser
         {
             mouseDown = false;
         }
+
         public void Directory_Location(object sender, EventArgs e)
         {
 
@@ -112,12 +116,11 @@ namespace NitroxSaveParser
                     return;
                 }
                 selectedDir = Path.GetFullPath(dialog.FileName);
-                string dir = selectedDir + @"\Version.json";
-                
-                //string dir = selectedDir; 
-                //for directories is above
+                dir = selectedDir + @"\Version.json";
+
                 if (File.Exists(dir))
                 {
+
                     Directoryvalid = true;
                     Found.Enabled = true;
                     Found.Visible = true;
@@ -137,10 +140,8 @@ namespace NitroxSaveParser
                     NotFound.Visible = true;
 
                 }
+
             }
-
-
-
         }
 
         private void ReadData_Click(object sender, EventArgs e)
@@ -148,6 +149,7 @@ namespace NitroxSaveParser
             InitialDataParse.InitialData();
             DataSelectPage DataSelectPage = new DataSelectPage();
             DataSelectPage.Show();
+            this.Refresh();
         }
 
         private void PlayerData_CheckedChanged_1(object sender, EventArgs e)
