@@ -22,10 +22,11 @@ namespace NitroxSaveParser
         {
             InitializeComponent();
         }
-        public static string selectedDir { get; set; }
-        public static bool ReadWorldDataTrue { get; set; }
-        public static bool ReadPlayerDataTrue { get; set; }
-        public static bool ReadBaseDataTrue { get; set; }
+        public static string selectedDir { get;}
+        public static bool ReadWorldDataTrue = false;
+        public static bool ReadPlayerDataTrue = false;
+        public static bool ReadBaseDataTrue = false;
+        public static bool Directoryvalid = false;
 
         private bool mouseDown;
         private Point lastLocation;
@@ -64,7 +65,22 @@ namespace NitroxSaveParser
 
         private void WorldData_CheckedChanged(object sender, EventArgs e)
         {
-            bool ReadWorldDataTrue = true;
+            if (WorldData.Checked)
+            {
+                ReadWorldDataTrue = true;
+                if (Directoryvalid)
+                {
+                    ReadData.Enabled = true;
+                }
+            }
+            else
+            {
+                ReadWorldDataTrue = false;
+                if (!ReadBaseDataTrue && !ReadWorldDataTrue && !ReadPlayerDataTrue)
+                {
+                    ReadData.Enabled = false;
+                }
+            }
         }
 
         private void PlayerData_CheckedChanged(object sender, EventArgs e)
@@ -102,11 +118,15 @@ namespace NitroxSaveParser
                 //for directories is above
                 if (File.Exists(dir))
                 {
+                    Directoryvalid = true;
                     Found.Enabled = true;
                     Found.Visible = true;
                     NotFound.Enabled = false;
                     NotFound.Visible = false;
-                    ReadData.Enabled = true;
+                    if (ReadBaseDataTrue | ReadPlayerDataTrue | ReadWorldDataTrue)
+                    {
+                        ReadData.Enabled = true;
+                    }
                 }
                 else
                 {
@@ -132,12 +152,42 @@ namespace NitroxSaveParser
 
         private void PlayerData_CheckedChanged_1(object sender, EventArgs e)
         {
-            bool ReadBaseDataTrue = true;
+            if (PlayerData.Checked)
+            {
+                ReadPlayerDataTrue = true;
+                if (Directoryvalid)
+                {
+                    ReadData.Enabled = true;
+                }
+            }
+            else
+            {
+                ReadPlayerDataTrue = false;
+                if (!ReadBaseDataTrue && !ReadWorldDataTrue && !ReadPlayerDataTrue)
+                {
+                    ReadData.Enabled = false;
+                }
+            }
         }
 
         private void BaseData_CheckedChanged(object sender, EventArgs e)
         {
-            bool ReadBaseDataTrue = true;
+            if (BaseData.Checked)
+            {
+                ReadBaseDataTrue = true;
+                if (Directoryvalid)
+                {
+                    ReadData.Enabled = true;
+                }
+            }
+            else
+            {
+                ReadBaseDataTrue = false;
+                if (!ReadBaseDataTrue && !ReadWorldDataTrue && !ReadPlayerDataTrue)
+                {
+                    ReadData.Enabled = false;
+                }
+            }
         }
 
         private void IntialPage_Load(object sender, EventArgs e)
