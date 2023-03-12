@@ -1,40 +1,78 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
+using System.Collections.Generic;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using NitroxSaveParser;
 
-    class PlayerData
+class PlayerData
+{
+    public List<Player> Players { get; set; }
+}
+
+class Player
+{
+    public string Name { get; set; }
+    public List<string> UsedItems { get; set; }
+    public List<string> QuickSlotsBinding { get; set; }
+    public List<string> EquippedItems { get; set; }
+    public List<string> Modules { get; set; }
+    public string ID { get; set; }
+    public Position SpawnPosition { get; set; }
+    public Rotation SpawnRotation { get; set; }
+    public Stats CurrentStats { get; set; }
+    public string SubRootId { get; set; }
+    public string Permissions { get; set; }
+    public string NitroxId { get; set; }
+    public bool IsPermaDeath { get; set; }
+    public List<string> CompletedGoals { get; set; }
+    public List<string> PingInstancePreferences { get; set; }
+}
+
+class Position
+{
+    public float X { get; set; }
+    public float Y { get; set; }
+    public float Z { get; set; }
+}
+
+class Rotation
+{
+    public float X { get; set; }
+    public float Y { get; set; }
+    public float Z { get; set; }
+    public float W { get; set; }
+}
+
+class Stats
+{
+    public float Oxygen { get; set; }
+    public float MaxOxygen { get; set; }
+    public float Health { get; set;}
+    public float Food { get; set; }
+    public float Water { get; set; }
+    public float InfectionAmount { get; set; }
+}
+class parse
+{
+    public static void PlayerParse()
     {
-        public static string name { get; set; }
-        public static void Parse()
-        {
-            InitialPage nitialPage = new InitialPage();
-            string directory = InitialPage.dir;
-            string json = File.ReadAllText(directory);
+        string json = File.ReadAllText("PlayerData.json");
+        PlayerData playerData = JsonConvert.DeserializeObject<PlayerData>(json);
+        List<Player> players = playerData.Players;
+        string name = players[0].Name;
+        List<string> usedItems = players[0].UsedItems;
+        List<string> quickSlotsBinding = players[0].QuickSlotsBinding;
+        List<string> equippedItems = players[0].QuickSlotsBinding;
+        List<string> modules = players[0].Modules;
+        string id = players[0].ID;
+        Position spawnPosition = players[0].SpawnPosition;
+        Rotation spawnRotation = players[0].SpawnRotation;
+        Stats currentStats = players[0].CurrentStats;
+        string subRootId = players[0].SubRootId;
+        string permissions = players[0].Permissions;
+        string nitroxId = players[0].Permissions;
+        bool isPermaDeath = players[0].IsPermaDeath;
+        List<string> completedGoals = players[0].CompletedGoals;
+        List<string> pingInstancePreferences = players[0].PingInstancePreferences;
 
-            string jsonData = "{\"Players\":[{\"Name\":\"bud\",\"UsedItems\":[\"Flare\"],\"QuickSlotsBinding\":[\"835b57ce-fb1c-49fe-9740-e08acfef7ffb\",\"null\",\"null\",\"null\",\"null\"],\"EquippedItems\":[],\"Modules\":[],\"Id\":1,\"SpawnPosition\":{\"X\":-105.493919,\"Y\":1.9027071,\"Z\":-305.1903},\"SpawnRotation\":{\"X\":0.0,\"Y\":0.6419517,\"Z\":0.0,\"W\":-0.7667451},\"CurrentStats\":{\"Oxygen\":45.0,\"MaxOxygen\":45.0,\"Health\":80.0,\"Food\":45.7381134,\"Water\":83.83331,\"InfectionAmount\":0.1},\"SubRootId\":\"90e44d82-accf-42ea-9c83-fb0d9f002d1e\",\"Permissions\":\"ADMIN\",\"NitroxId\":\"095626d0-472c-431b-a409-5d8b06be828b\",\"IsPermaDeath\":false,\"CompletedGoals\":[\"FilteredWater\",\"NutrientBlock\",\"Flare\",\"Equip_Flare\",\"Open_PDA\",\"Pickup_VehicleHullModule1\",\"VehicleHullModule1\"],\"PingInstancePreferences\":[]}]}";
-
-            JObject parsedJson = JObject.Parse(json);
-            JArray playersArray = (JArray)parsedJson["Players"];
-
-            foreach (JObject playerObject in playersArray.Children<JObject>())
-            {
-                string name = (string)playerObject["Name"];
-                JArray usedItems = (JArray)playerObject["UsedItems"];
-                JArray quickSlotsBinding = (JArray)playerObject["QuickSlotsBinding"];
-                JArray equippedItems = (JArray)playerObject["EquippedItems"];
-                JArray modules = (JArray)playerObject["Modules"];
-                int id = (int)playerObject["Id"];
-                JObject spawnPosition = (JObject)playerObject["SpawnPosition"];
-                JObject spawnRotation = (JObject)playerObject["SpawnRotation"];
-                JObject currentStats = (JObject)playerObject["CurrentStats"];
-                string subRootId = (string)playerObject["SubRootId"];
-                string permissions = (string)playerObject["Permissions"];
-                string nitroxId = (string)playerObject["NitroxId"];
-                bool isPermaDeath = (bool)playerObject["IsPermaDeath"];
-                JArray completedGoals = (JArray)playerObject["CompletedGoals"];
-                JArray pingInstancePreferences = (JArray)playerObject["PingInstancePreferences"];
-            }
-        }
     }
+
+}
