@@ -9,8 +9,8 @@ class VersionData
     public static string Versionstr { get; set; }
     public static void Parse()
     {
-        IntialPage nitialPage = new IntialPage();
-        string directory = IntialPage.dir;
+        InitialPage nitialPage = new InitialPage();
+        string directory = InitialPage.dir;
         // Read the file contents into a string
         string json = File.ReadAllText(directory);
 

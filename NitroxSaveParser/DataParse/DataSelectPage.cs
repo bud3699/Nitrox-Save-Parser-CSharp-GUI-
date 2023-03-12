@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace NitroxSaveParser.DataParse
 {
-    public partial class DataSelectPage : NitroxSaveParser.IntialPage
+    public partial class DataSelectPage : NitroxSaveParser.InitialPage
     {
         public static string Versionstr { get; set; }
         public DataSelectPage()

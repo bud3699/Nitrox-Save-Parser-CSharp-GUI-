@@ -96,19 +96,19 @@
     <Compile Include="DataParse\VersionDataParse.cs" />
     <Compile Include="DataParse\InitialDataParse.cs" />
     <Compile Include="DataParse\PlayerDataParse.cs" />
-    <Compile Include="IntialPage.cs">
+    <Compile Include="InitialPage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="IntialPage.Designer.cs">
-      <DependentUpon>IntialPage.cs</DependentUpon>
+    <Compile Include="InitialPage.Designer.cs">
+      <DependentUpon>InitialPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DataParse\DataSelectPage.resx">
       <DependentUpon>DataSelectPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IntialPage.resx">
-      <DependentUpon>IntialPage.cs</DependentUpon>
+    <EmbeddedResource Include="InitialPage.resx">
+      <DependentUpon>InitialPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

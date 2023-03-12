@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace NitroxSaveParser
 {
-    partial class IntialPage
+    partial class InitialPage
     {
         /// <summary>
         /// Required designer variable.

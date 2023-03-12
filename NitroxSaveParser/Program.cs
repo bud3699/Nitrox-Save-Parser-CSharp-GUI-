@@ -16,7 +16,9 @@ namespace NitroxSaveParser
        {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new IntialPage());
+            Application.Run(new InitialPage());
+            //comment
+
         }
     }
 }

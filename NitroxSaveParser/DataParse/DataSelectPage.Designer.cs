@@ -10,6 +10,7 @@ namespace NitroxSaveParser.DataParse
         /// </summary>
         private System.ComponentModel.IContainer components = null;
         string versionString ="World Version: "+VersionData.Versionstr;
+        string names = PlayerData.name;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -43,6 +44,7 @@ namespace NitroxSaveParser.DataParse
             this.ViewBaseData = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.VersionNum = new System.Windows.Forms.Label();
+            this.Name = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,9 +72,6 @@ namespace NitroxSaveParser.DataParse
             this.DataViewer.TabIndex = 22;
             this.DataViewer.Text = "Nitrox Data Viewer";
             this.DataViewer.UseCompatibleTextRendering = true;
-            this.DataViewer.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseDown);
-            this.DataViewer.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseMove);
-            this.DataViewer.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // ViewWorldData
             // 
@@ -128,27 +127,37 @@ namespace NitroxSaveParser.DataParse
             this.VersionNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.25F);
             this.VersionNum.Location = new System.Drawing.Point(305, 77);
             this.VersionNum.Name = "VersionNum";
-            this.VersionNum.Size = new System.Drawing.Size(188, 22);
+            this.VersionNum.Size = new System.Drawing.Size(0, 22);
             this.VersionNum.TabIndex = 27;
-            this.VersionNum.Text = versionString;
+            // 
+            // Name
+            // 
+            this.Name.AutoSize = true;
+            this.Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
+            this.Name.Location = new System.Drawing.Point(113, 149);
+            this.Name.Name = "Name";
+            this.Name.Size = new System.Drawing.Size(70, 25);
+            this.Name.TabIndex = 28;
+            this.Name.Text = names;
             // 
             // DataSelectPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.ClientSize = new System.Drawing.Size(800, 449);
+            this.Controls.Add(this.Name);
             this.Controls.Add(this.VersionNum);
             this.Controls.Add(this.ViewBaseData);
             this.Controls.Add(this.ViewPlayerData);
             this.Controls.Add(this.ViewWorldData);
             this.Controls.Add(this.DataViewer);
             this.Controls.Add(this.pictureBox1);
-            this.Name = "DataSelectPage";
             this.Controls.SetChildIndex(this.pictureBox1, 0);
             this.Controls.SetChildIndex(this.DataViewer, 0);
             this.Controls.SetChildIndex(this.ViewWorldData, 0);
             this.Controls.SetChildIndex(this.ViewPlayerData, 0);
             this.Controls.SetChildIndex(this.ViewBaseData, 0);
             this.Controls.SetChildIndex(this.VersionNum, 0);
+            this.Controls.SetChildIndex(this.Name, 0);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -164,5 +173,6 @@ namespace NitroxSaveParser.DataParse
         private System.Windows.Forms.Button ViewBaseData;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Label VersionNum;
+        private System.Windows.Forms.Label Name;
     }
 }

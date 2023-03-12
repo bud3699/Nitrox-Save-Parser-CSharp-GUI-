@@ -17,11 +17,11 @@ using System.Security.Policy;
 
 namespace NitroxSaveParser
 {
-    public partial class IntialPage : Form
+    public partial class InitialPage : Form
     {
         public static string dir { get; private set; }
 
-        public IntialPage()
+        public InitialPage()
         {
             InitializeComponent();
         }
