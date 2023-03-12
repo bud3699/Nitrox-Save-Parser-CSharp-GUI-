@@ -11,7 +11,7 @@ namespace NitroxSaveParser.DataParse
         public static void InitialData()
         {
             VersionData.Parse();
-            PlayerData.Parse();
+            PlayersData.Parse();
             //Parse.PlayerData();
         }
 

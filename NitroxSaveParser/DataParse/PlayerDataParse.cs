@@ -1,6 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using NitroxSaveParser;
+
 
 class PlayerData
 {
@@ -50,18 +53,24 @@ class Stats
     public float Water { get; set; }
     public float InfectionAmount { get; set; }
 }
-class parse
+class PlayersData
 {
-    public static void PlayerParse()
+    public static string PlayerCountstr { get; set; }
+
+    public static void Parse()
     {
-        string json = File.ReadAllText("PlayerData.json");
+        InitialPage nitialPage = new InitialPage();
+        string json = File.ReadAllText(InitialPage.PlayerDataDir);
         PlayerData playerData = JsonConvert.DeserializeObject<PlayerData>(json);
         List<Player> players = playerData.Players;
         string name = players[0].Name;
         List<string> usedItems = players[0].UsedItems;
-        List<string> quickSlotsBinding = players[0].QuickSlotsBinding;
-        List<string> equippedItems = players[0].QuickSlotsBinding;
-        List<string> modules = players[0].Modules;
+        try{List<string> quickSlotsBinding = players[0].QuickSlotsBinding;}
+        catch (JsonReaderException ex){ Console.WriteLine(ex.Message); }
+        try{List<string> equippedItems = players[0].EquippedItems;}
+        catch (JsonReaderException ex){ Console.WriteLine(ex.Message); }
+        try {List<string> modules = players[0].Modules; }
+        catch (JsonReaderException ex){ Console.WriteLine(ex.Message); }
         string id = players[0].ID;
         Position spawnPosition = players[0].SpawnPosition;
         Rotation spawnRotation = players[0].SpawnRotation;
@@ -71,7 +80,15 @@ class parse
         string nitroxId = players[0].Permissions;
         bool isPermaDeath = players[0].IsPermaDeath;
         List<string> completedGoals = players[0].CompletedGoals;
-        List<string> pingInstancePreferences = players[0].PingInstancePreferences;
+        try { List<string> pingInstancePreferences = players[0].PingInstancePreferences; }
+        catch (JsonReaderException ex) { Console.WriteLine(ex.Message); }
+        int PlayerCount = 0;
+        foreach (var player in players)
+        {
+            PlayerCount = PlayerCount + 1;
+            PlayerCountstr = PlayerCount.ToString();
+
+        }
 
     }
 

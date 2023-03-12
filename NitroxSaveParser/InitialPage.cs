@@ -20,6 +20,7 @@ namespace NitroxSaveParser
     public partial class InitialPage : Form
     {
         public static string dir { get; private set; }
+        public static string PlayerDataDir { get; private set; }
 
         public InitialPage()
         {
@@ -117,6 +118,7 @@ namespace NitroxSaveParser
                 }
                 selectedDir = Path.GetFullPath(dialog.FileName);
                 dir = selectedDir + @"\Version.json";
+                PlayerDataDir = selectedDir + @"\PlayerData.json";
 
                 if (File.Exists(dir))
                 {

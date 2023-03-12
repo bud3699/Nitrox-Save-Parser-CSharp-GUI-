@@ -10,7 +10,8 @@ namespace NitroxSaveParser.DataParse
         /// </summary>
         private System.ComponentModel.IContainer components = null;
         string versionString ="World Version: "+VersionData.Versionstr;
-        string names = PlayerData.name;
+        string PlayerCounts = "Players: " + PlayersData.PlayerCountstr;
+        
 
         /// <summary>
         /// Clean up any resources being used.
@@ -45,6 +46,7 @@ namespace NitroxSaveParser.DataParse
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.VersionNum = new System.Windows.Forms.Label();
             this.Name = new System.Windows.Forms.Label();
+            this.PlayerCount = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -136,14 +138,26 @@ namespace NitroxSaveParser.DataParse
             this.Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
             this.Name.Location = new System.Drawing.Point(113, 149);
             this.Name.Name = "Name";
-            this.Name.Size = new System.Drawing.Size(70, 25);
+            this.Name.Size = new System.Drawing.Size(0, 25);
             this.Name.TabIndex = 28;
-            this.Name.Text = names;
+            // 
+            // PlayerCount
+            // 
+            this.PlayerCount.AutoSize = true;
+            this.PlayerCount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(21)))), ((int)(((byte)(22)))));
+            this.PlayerCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.25F);
+            this.PlayerCount.Location = new System.Drawing.Point(331, 336);
+            this.PlayerCount.Name = "PlayerCount";
+            this.PlayerCount.Size = new System.Drawing.Size(121, 26);
+            this.PlayerCount.TabIndex = 29;
+            this.PlayerCount.Text = PlayerCounts;
+            this.PlayerCount.Click += new System.EventHandler(this.PlayerCount_Click);
             // 
             // DataSelectPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.ClientSize = new System.Drawing.Size(800, 449);
+            this.Controls.Add(this.PlayerCount);
             this.Controls.Add(this.Name);
             this.Controls.Add(this.VersionNum);
             this.Controls.Add(this.ViewBaseData);
@@ -158,6 +172,7 @@ namespace NitroxSaveParser.DataParse
             this.Controls.SetChildIndex(this.ViewBaseData, 0);
             this.Controls.SetChildIndex(this.VersionNum, 0);
             this.Controls.SetChildIndex(this.Name, 0);
+            this.Controls.SetChildIndex(this.PlayerCount, 0);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -174,5 +189,6 @@ namespace NitroxSaveParser.DataParse
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Label VersionNum;
         private System.Windows.Forms.Label Name;
+        private System.Windows.Forms.Label PlayerCount;
     }
 }
