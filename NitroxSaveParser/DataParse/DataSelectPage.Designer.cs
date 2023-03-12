@@ -70,6 +70,9 @@ namespace NitroxSaveParser.DataParse
             this.DataViewer.TabIndex = 22;
             this.DataViewer.Text = "Nitrox Data Viewer";
             this.DataViewer.UseCompatibleTextRendering = true;
+            this.DataViewer.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseDown);
+            this.DataViewer.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseMove);
+            this.DataViewer.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // ViewWorldData
             // 
