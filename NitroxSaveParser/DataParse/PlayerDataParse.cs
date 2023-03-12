@@ -1,8 +1,13 @@
 ﻿using System;
 using System.IO;
+using System.Text;
+using System.Reflection;
+using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using NitroxSaveParser;
+using ProtoBuf;
+
 
 
 class PlayerData
@@ -59,9 +64,13 @@ class PlayersData
 
     public static void Parse()
     {
-        InitialPage nitialPage = new InitialPage();
+        InitialPage initialPage = new InitialPage();
         string json = File.ReadAllText(InitialPage.PlayerDataDir);
-        PlayerData playerData = JsonConvert.DeserializeObject<PlayerData>(json);
+        PlayerData playerData;
+        using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(json)))
+        {
+            playerData = Serializer.Deserialize<PlayerData>(ms);
+        }
         List<Player> players = playerData.Players;
         string name = players[0].Name;
         List<string> usedItems = players[0].UsedItems;
