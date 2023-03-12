@@ -10,7 +10,7 @@ using ProtoBuf;
 
 
 
-class PlayerData
+ class PlayerData
 {
     public List<Player> Players { get; set; }
 }
@@ -62,11 +62,13 @@ class PlayersData
 {
     public static string PlayerCountstr { get; set; }
 
+
     public static void Parse()
     {
         InitialPage initialPage = new InitialPage();
         string json = File.ReadAllText(InitialPage.PlayerDataDir);
         PlayerData playerData;
+        //PlayerData playerData = JsonConvert.DeserializeObject<PlayerData>(json);   //This is thw original Deserialize code
         using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(json)))
         {
             playerData = Serializer.Deserialize<PlayerData>(ms);
