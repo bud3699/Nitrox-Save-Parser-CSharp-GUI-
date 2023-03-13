@@ -7,10 +7,52 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using NitroxSaveParser;
 using ProtoBuf;
+using Newtonsoft.Json.Serialization;
+using System.Security.Cryptography.X509Certificates;
+using System.Linq.Expressions;
 
+class EmptyArrayToNullConverter : JsonConverter
+{
+    public override bool CanConvert(Type objectType)
+    {
+        return objectType.IsArray;
+    }
 
+    public override bool CanWrite
+    {
+        get { return false; }
+    }
 
- class PlayerData
+    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    {
+        if (reader.TokenType == JsonToken.Null)
+        {
+            return null;
+        }
+        else if (reader.TokenType == JsonToken.StartArray)
+        {
+            var listType = objectType.GetElementType();
+            var list = new List<object>();
+            while (reader.Read() && reader.TokenType != JsonToken.EndArray)
+            {
+                var value = serializer.Deserialize(reader, listType);
+                list.Add(value);
+            }
+            return list.ToArray();
+        }
+        else
+        {
+            throw new JsonSerializationException("Unexpected token type: " + reader.TokenType);
+        }
+
+    }
+
+    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    {
+        throw new NotImplementedException();
+    }
+}
+    class PlayerData
 {
     public List<Player> Players { get; set; }
 }
@@ -67,19 +109,22 @@ class PlayersData
     {
         InitialPage initialPage = new InitialPage();
         string json = File.ReadAllText(InitialPage.PlayerDataDir);
-        PlayerData playerData;
-        //PlayerData playerData = JsonConvert.DeserializeObject<PlayerData>(json);   //This is thw original Deserialize code
-        using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(json)))
-        {
-            playerData = Serializer.Deserialize<PlayerData>(ms);
-        }
+        // PlayerData playerData;
+        PlayerData playerData = JsonConvert.DeserializeObject<PlayerData>(json, new EmptyArrayToNullConverter());   //This is the original Deserialize code
+        //using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(json)))
+        //{
+        //    playerData = Serializer.Deserialize<PlayerData>(ms);
+        //}
         List<Player> players = playerData.Players;
         string name = players[0].Name;
         List<string> usedItems = players[0].UsedItems;
         try{List<string> quickSlotsBinding = players[0].QuickSlotsBinding;}
         catch (JsonReaderException ex){ Console.WriteLine(ex.Message); }
-        try{List<string> equippedItems = players[0].EquippedItems;}
-        catch (JsonReaderException ex){ Console.WriteLine(ex.Message); }
+        List<string> equippedItems = null;
+        if (players[0].EquippedItems != null)
+        {
+            equippedItems = players[0].EquippedItems;
+        }
         try {List<string> modules = players[0].Modules; }
         catch (JsonReaderException ex){ Console.WriteLine(ex.Message); }
         string id = players[0].ID;
