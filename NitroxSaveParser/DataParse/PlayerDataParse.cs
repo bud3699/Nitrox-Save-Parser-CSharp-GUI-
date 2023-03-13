@@ -12,29 +12,56 @@ using System.Security.Cryptography.X509Certificates;
 using System.Linq.Expressions;
 using System.Net;
 
-class EmptyArrayToNullConverter : JsonConverter
+public class EmptyArrayToNullConverter : JsonConverter
 {
     public override bool CanConvert(Type objectType)
     {
         return objectType.IsArray || objectType.IsGenericType;
     }
+
     public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
     {
-        if (reader.TokenType == JsonToken.StartArray && !reader.Read())
-        {
+        if (reader.TokenType == JsonToken.Null)
             return null;
-        }
-        var value = serializer.Deserialize(reader, objectType);
 
-        return value;
+        // If the token is a start array and the next token is an end array, return null
+        if (reader.TokenType == JsonToken.StartArray && reader.Read() && reader.TokenType == JsonToken.EndArray)
+            return null;
+
+        var elementType = objectType.IsArray ? objectType.GetElementType() : objectType.GetGenericArguments()[0];
+        var listType = typeof(List<>).MakeGenericType(elementType);
+        var list = (IList)Activator.CreateInstance(listType);
+
+        if (reader.TokenType == JsonToken.StartArray)
+        {
+            while (reader.Read() && reader.TokenType != JsonToken.EndArray)
+            {
+                var value = serializer.Deserialize(reader, elementType);
+                list.Add(value);
+            }
+        }
+        else
+        {
+            var value = serializer.Deserialize(reader, elementType);
+            list.Add(value);
+        }
+
+        if (objectType.IsArray)
+        {
+            var array = Array.CreateInstance(elementType, list.Count);
+            list.CopyTo(array, 0);
+            return array;
+        }
+
+        return list;
     }
 
     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
     {
-        throw new NotImplementedException();
+        serializer.Serialize(writer, value);
     }
 }
-    class PlayerData
+class PlayerData
 {
     public List<Player> Players { get; set; }
 }
