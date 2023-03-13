@@ -119,7 +119,11 @@ class PlayersData
         InitialPage initialPage = new InitialPage();
         string json = File.ReadAllText(InitialPage.PlayerDataDir);
         // PlayerData playerData;
-        PlayerData playerData = JsonConvert.DeserializeObject<PlayerData>(json, new EmptyArrayToNullConverter());   //This is the original Deserialize code
+        PlayerData playerData = JsonConvert.DeserializeObject<PlayerData>(json, new JsonSerializerSettings
+        {
+            NullValueHandling = NullValueHandling.Ignore,
+            Converters = new List<JsonConverter> { new EmptyArrayToNullConverter() }
+        });   //This is the original Deserialize code
         //using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(json)))
         //{
         //    playerData = Serializer.Deserialize<PlayerData>(ms);
