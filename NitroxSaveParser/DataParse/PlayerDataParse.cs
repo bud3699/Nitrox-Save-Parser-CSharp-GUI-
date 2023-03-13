@@ -10,41 +10,23 @@ using ProtoBuf;
 using Newtonsoft.Json.Serialization;
 using System.Security.Cryptography.X509Certificates;
 using System.Linq.Expressions;
+using System.Net;
 
 class EmptyArrayToNullConverter : JsonConverter
 {
     public override bool CanConvert(Type objectType)
     {
-        return objectType.IsArray;
+        return objectType.IsArray || objectType.IsGenericType;
     }
-
-    public override bool CanWrite
-    {
-        get { return false; }
-    }
-
     public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
     {
-        if (reader.TokenType == JsonToken.Null)
+        if (reader.TokenType == JsonToken.StartArray && !reader.Read())
         {
             return null;
         }
-        else if (reader.TokenType == JsonToken.StartArray)
-        {
-            var listType = objectType.GetElementType();
-            var list = new List<object>();
-            while (reader.Read() && reader.TokenType != JsonToken.EndArray)
-            {
-                var value = serializer.Deserialize(reader, listType);
-                list.Add(value);
-            }
-            return list.ToArray();
-        }
-        else
-        {
-            throw new JsonSerializationException("Unexpected token type: " + reader.TokenType);
-        }
+        var value = serializer.Deserialize(reader, objectType);
 
+        return value;
     }
 
     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
